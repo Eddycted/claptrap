@@ -9,8 +9,4 @@
     <PackageReference Include="Discord.Net" Version="2.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
 </Project>
