@@ -13,7 +13,7 @@ namespace CL4PTR4P.Modules
         private static readonly Random random = new Random();
 
         [Command("bier")]
-        [Summary("Wie moet bier halen?")]
+        [Summary("Tijd voor een nieuw rondje!")]
         [Alias("2woorden9letters", "bierhalen", "ikhebdorst")]
         public async Task BierAsync()
         {
