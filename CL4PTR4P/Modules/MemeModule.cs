@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 namespace CL4PTR4P.Modules
 {
+    [Name("Meme Module")]
     public class MemeModule : ModuleBase<SocketCommandContext>
     {
         // TODO: Find and .Mention

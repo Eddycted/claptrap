@@ -6,7 +6,8 @@ using System.Linq;
 
 namespace CL4PTR4P.Modules
 {
-    public class LanModule : ModuleBase<SocketCommandContext>
+    [Name("Bier Module")]
+    public class BierModule : ModuleBase<SocketCommandContext>
     {
         private static readonly List<string> users = new List<string>();
         private static readonly Random random = new Random();
