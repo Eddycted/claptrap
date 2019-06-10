@@ -21,9 +21,8 @@ namespace CL4PTR4P.Modules
         }
 
         [Command("help")]
-        [Summary("Lists available commands.")]
         [Alias("?")]
-
+        [Summary("Lists available commands.")]        
         public async Task InfoAsync(string path = "")
         {
             EmbedBuilder output = new EmbedBuilder();

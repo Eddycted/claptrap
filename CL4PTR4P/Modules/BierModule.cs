@@ -1,8 +1,8 @@
 ﻿using Discord.Commands;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CL4PTR4P.Modules
 {
@@ -13,8 +13,8 @@ namespace CL4PTR4P.Modules
         private static readonly Random random = new Random();
 
         [Command("bier")]
-        [Summary("Tijd voor een nieuw rondje!")]
         [Alias("2woorden9letters", "bierhalen", "ikhebdorst")]
+        [Summary("Tijd voor een nieuw rondje!")]
         public async Task BierAsync()
         {
             if (users.Any())

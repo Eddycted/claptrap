@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using CL4PTR4P.Services;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,6 +52,7 @@ namespace CL4PTR4P
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
+            services.AddSingleton<ITournamentService, TournamentService>();
 
             return services.BuildServiceProvider();
         }
