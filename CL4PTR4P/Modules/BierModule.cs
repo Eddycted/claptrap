@@ -77,6 +77,7 @@ namespace CL4PTR4P.Modules
             }
             else
             {
+                // TODO: Mention winner
                 var winnaar = users[random.Next(users.Count)];
                 output.AddField($"Halen!", $"{winnaar} gaat {users.Count} bier halen voor:\n{string.Join(", ", users)}!");
             }
