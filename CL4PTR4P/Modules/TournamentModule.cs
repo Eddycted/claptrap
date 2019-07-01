@@ -1,5 +1,7 @@
-﻿using CL4PTR4P.Services;
+﻿using CL4PTR4P.Data.Enums;
+using CL4PTR4P.Services;
 using Discord.Commands;
+using System;
 using System.Threading.Tasks;
 
 namespace CL4PTR4P.Modules
@@ -20,15 +22,23 @@ namespace CL4PTR4P.Modules
         [Remarks("Supported formats: FFA, solo, team")]
         public async Task CreateAsync(string name, string format)
         {
+            Enum.TryParse(format, ignoreCase: true, out TournamentFormat tournamentFormat);
+
+            if (tournamentFormat == TournamentFormat.None)
+            {
+                await ReplyAsync($"Invalid tournament format: {format}");
+                return;
+            }
+
             await ReplyAsync($"Creating new {format} {name} tournament.");
-            await _tournamentService.CreateAsync(name);
+            await _tournamentService.Create(tournamentFormat, name);
         }
 
         [Command("signup")]
         [Summary("Sign up for the specified tournament.")]
         public async Task SignUpAsync(string name)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

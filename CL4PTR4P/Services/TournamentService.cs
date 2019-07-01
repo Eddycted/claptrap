@@ -1,16 +1,33 @@
-﻿using System;
+﻿using CL4PTR4P.Data;
+using CL4PTR4P.Data.Enums;
+using CL4PTR4P.Data.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace CL4PTR4P.Services
 {
     public class TournamentService : ITournamentService
-    {
-        public async Task CreateAsync(string name)
+    { 
+        private readonly TournamentContext _tournamentContext;
+
+        public TournamentService(TournamentContext tournamentContext)
         {
-            throw new NotImplementedException();
+            _tournamentContext = tournamentContext;
         }
 
-        public async Task SignupAsync(string name)
+        public async Task Create(TournamentFormat format, string name)
+        {
+            var tournament = new Tournament
+            {
+                Format = format,
+                Name = name
+            };
+
+            await _tournamentContext.AddAsync(tournament);
+            await _tournamentContext.SaveChangesAsync();
+        }
+
+        public async Task Signup(string name)
         {
             throw new NotImplementedException();
         }
@@ -18,8 +35,8 @@ namespace CL4PTR4P.Services
 
     public interface ITournamentService
     {
-        Task CreateAsync(string name);
+        Task Create(TournamentFormat format, string name);
 
-        Task SignupAsync(string name);
+        Task Signup(string name);
     }
 }

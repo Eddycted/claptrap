@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190701212511_TournamentEntity.cs" />
+    <Compile Remove="Migrations\20190701212511_TournamentEntity.Designer.cs" />
+    <Compile Remove="Migrations\20190701213227_TournamentEntity.cs" />
+    <Compile Remove="Migrations\20190701213227_TournamentEntity.Designer.cs" />
+    <Compile Remove="Migrations\20190701213523_TournamentEntity.cs" />
+    <Compile Remove="Migrations\20190701213523_TournamentEntity.Designer.cs" />
+    <Compile Remove="Migrations\20190701213748_TournamentEntity.cs" />
+    <Compile Remove="Migrations\20190701213748_TournamentEntity.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
@@ -14,6 +25,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

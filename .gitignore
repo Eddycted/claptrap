@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/CL4PTR4P/tournament.db
+/CL4PTR4P/Properties/launchSettings.json
+/tournament.db

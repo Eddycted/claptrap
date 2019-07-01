@@ -1,7 +1,9 @@
-﻿using CL4PTR4P.Services;
+﻿using CL4PTR4P.Data;
+using CL4PTR4P.Services;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
@@ -53,6 +55,7 @@ namespace CL4PTR4P
         {
             var services = new ServiceCollection();
             services.AddSingleton<ITournamentService, TournamentService>();
+            services.AddDbContext<TournamentContext>(options => options.UseSqlite("Data Source=tournament.db"));
 
             return services.BuildServiceProvider();
         }
