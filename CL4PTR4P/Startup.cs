@@ -55,7 +55,7 @@ namespace CL4PTR4P
         {
             var services = new ServiceCollection();
             services.AddSingleton<ITournamentService, TournamentService>();
-            services.AddDbContext<TournamentContext>(options => options.UseSqlite("Data Source=tournament.db"));
+            services.AddDbContext<TournamentContext>(options => options.UseSqlServer(@"Server=(localdb)\claptrap;Database=Claptrap;Trusted_Connection=True;"));
 
             return services.BuildServiceProvider();
         }

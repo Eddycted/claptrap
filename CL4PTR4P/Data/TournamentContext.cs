@@ -14,13 +14,13 @@ namespace CL4PTR4P.Data
 
         public TournamentContext()
         {
-            Database.EnsureCreated();
+            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // TODO: Move to configuration file
-            optionsBuilder.UseSqlite(@"Data Source=D:\Projects\CL4PTR4P\CL4PTR4P\CL4PTR4P\tournament.db");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\claptrap;Database=Claptrap;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
