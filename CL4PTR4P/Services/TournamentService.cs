@@ -3,6 +3,8 @@ using CL4PTR4P.Data.Enums;
 using CL4PTR4P.Data.Models;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
+using CL4PTR4P.Data.Models.JoinEntities;
 
 namespace CL4PTR4P.Services
 {
@@ -15,7 +17,7 @@ namespace CL4PTR4P.Services
             _tournamentContext = tournamentContext;
         }
 
-        public async Task Create(TournamentFormat format, string name)
+        public async Task CreateAsync(string name, TournamentFormat format)
         {
             var tournament = new Tournament
             {
@@ -23,20 +25,47 @@ namespace CL4PTR4P.Services
                 Name = name
             };
 
-            await _tournamentContext.AddAsync(tournament);
+            _tournamentContext.Add(tournament);
             await _tournamentContext.SaveChangesAsync();
         }
 
-        public async Task Signup(string name)
+        public async Task SignUpAsync(string tournamentName, ulong playerId)
         {
-            throw new NotImplementedException();
+            //check if tournament exists
+            var tournament = _tournamentContext.Tournaments.SingleOrDefault(t => t.Name == tournamentName);            
+            if (tournament == null)
+            {
+                //return an error
+                return;
+            }
+
+            //check if player is in db, if not add them
+            var player = _tournamentContext.Players.SingleOrDefault(p => p.PlayerId == playerId);
+            if (player == null)
+            {
+                player = new Player
+                {
+                    PlayerId = playerId
+                };
+                _tournamentContext.Add(player);
+            }
+
+            //check if player is in tournament, if not add them
+            if (tournament.PlayerTournaments.Any(pt => pt.Player == player))
+            {
+                // return an error
+                return;
+            }
+
+            tournament.PlayerTournaments.Add(new PlayerTournament { Tournament = tournament, Player = player });
+            await _tournamentContext.SaveChangesAsync();
         }
     }
 
     public interface ITournamentService
     {
-        Task Create(TournamentFormat format, string name);
+        Task CreateAsync(string name, TournamentFormat format);
 
-        Task Signup(string name);
+        Task SignUpAsync(string tournamentName, ulong playerId);
     }
 }

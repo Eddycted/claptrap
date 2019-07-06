@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CL4PTR4P.Migrations
 {
-    public partial class Initial : Migration
+    public partial class PlayerSignup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,11 +75,11 @@ namespace CL4PTR4P.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TeamId = table.Column<int>(nullable: false),
+                    PlayerId = table.Column<decimal>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Score = table.Column<int>(nullable: false),
                     MatchId = table.Column<int>(nullable: true),
-                    TournamentId = table.Column<int>(nullable: true)
+                    TeamId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -95,13 +95,31 @@ namespace CL4PTR4P.Migrations
                         column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlayerTournaments",
+                columns: table => new
+                {
+                    TournamentId = table.Column<int>(nullable: false),
+                    PlayerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayerTournaments", x => new { x.PlayerId, x.TournamentId });
+                    table.ForeignKey(
+                        name: "FK_PlayerTournaments_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Players_Tournaments_TournamentId",
+                        name: "FK_PlayerTournaments_Tournaments_TournamentId",
                         column: x => x.TournamentId,
                         principalTable: "Tournaments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -115,13 +133,19 @@ namespace CL4PTR4P.Migrations
                 column: "MatchId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Players_PlayerId",
+                table: "Players",
+                column: "PlayerId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Players_TeamId",
                 table: "Players",
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_TournamentId",
-                table: "Players",
+                name: "IX_PlayerTournaments_TournamentId",
+                table: "PlayerTournaments",
                 column: "TournamentId");
 
             migrationBuilder.CreateIndex(
@@ -130,13 +154,30 @@ namespace CL4PTR4P.Migrations
                 column: "MatchId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Teams_Name",
+                table: "Teams",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teams_TournamentId",
                 table: "Teams",
                 column: "TournamentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tournaments_Name",
+                table: "Tournaments",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "PlayerTournaments");
+
             migrationBuilder.DropTable(
                 name: "Players");
 

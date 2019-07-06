@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190706203712_PlayerSignup.cs" />
+    <Compile Remove="Migrations\20190706203712_PlayerSignup.Designer.cs" />
+    <Compile Remove="Migrations\20190706210657_PlayerSignup.cs" />
+    <Compile Remove="Migrations\20190706210657_PlayerSignup.Designer.cs" />
+    <Compile Remove="Migrations\20190706211402_PlayerSignup.cs" />
+    <Compile Remove="Migrations\20190706211402_PlayerSignup.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />

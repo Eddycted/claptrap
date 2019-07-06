@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CL4PTR4P.Data.Models.JoinEntities;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CL4PTR4P.Data.Models
 {
@@ -6,8 +8,10 @@ namespace CL4PTR4P.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        public int TeamId { get; set; }
+        public ulong PlayerId { get; set; }
         public string Name { get; set; }
         public int Score { get; set; }
+
+        public ICollection<PlayerTournament> PlayerTournaments { get; set; } 
     }
 }

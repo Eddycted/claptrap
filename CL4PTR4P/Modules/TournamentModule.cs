@@ -31,14 +31,15 @@ namespace CL4PTR4P.Modules
             }
 
             await ReplyAsync($"Creating new {format} {name} tournament.");
-            await _tournamentService.Create(tournamentFormat, name);
+            await _tournamentService.CreateAsync(name, tournamentFormat);
         }
 
         [Command("signup")]
         [Summary("Sign up for the specified tournament.")]
-        public async Task SignUpAsync(string name)
+        public async Task SignUpAsync(string tournament)
         {
-            throw new NotImplementedException();
+            await ReplyAsync($"Signing you up for tournament {tournament}, {Context.User.Mention}.");
+            await _tournamentService.SignUpAsync(tournament, Context.User.Id);
         }
     }
 }

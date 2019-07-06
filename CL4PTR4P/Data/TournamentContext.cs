@@ -1,4 +1,5 @@
 ﻿using CL4PTR4P.Data.Models;
+using CL4PTR4P.Data.Models.JoinEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CL4PTR4P.Data
@@ -12,10 +13,7 @@ namespace CL4PTR4P.Data
 
         public TournamentContext(DbContextOptions<TournamentContext> options) : base(options) { }
 
-        public TournamentContext()
-        {
-            
-        }
+        public TournamentContext() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -25,7 +23,29 @@ namespace CL4PTR4P.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+            builder.Entity<Tournament>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
+
+            builder.Entity<Team>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
+
+            builder.Entity<Player>()
+                .HasIndex(p => p.PlayerId)
+                .IsUnique();
+
+            builder.Entity<PlayerTournament>()
+                .HasKey(pt => new { pt.PlayerId, pt.TournamentId });
+            builder.Entity<PlayerTournament>()
+                .HasOne(pt => pt.Player)
+                .WithMany(p => p.PlayerTournaments)
+                .HasForeignKey(pt => pt.PlayerId);
+            builder.Entity<PlayerTournament>()
+                .HasOne(pt => pt.Tournament)
+                .WithMany(t => t.PlayerTournaments)
+                .HasForeignKey(pt => pt.TournamentId);
+
         }
     }
 }
