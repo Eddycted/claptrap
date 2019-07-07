@@ -17,13 +17,16 @@ namespace CL4PTR4P.Services
             _tournamentContext = tournamentContext;
         }
 
-        public async Task CreateAsync(string name, TournamentFormat format)
+        public async Task CreateAsync(string tournamentName, TournamentFormat format)
         {
-            var tournament = new Tournament
+            var tournament = _tournamentContext.Tournaments.SingleOrDefault(t => t.Name == tournamentName);
+            if (tournament != null)
             {
-                Format = format,
-                Name = name
-            };
+                //return an error
+                return;
+            }
+
+            tournament = new Tournament { Format = format, Name = tournamentName };
 
             _tournamentContext.Add(tournament);
             await _tournamentContext.SaveChangesAsync();

@@ -12,6 +12,8 @@
     <Compile Remove="Migrations\20190706210657_PlayerSignup.Designer.cs" />
     <Compile Remove="Migrations\20190706211402_PlayerSignup.cs" />
     <Compile Remove="Migrations\20190706211402_PlayerSignup.Designer.cs" />
+    <Compile Remove="Migrations\20190707125843_ManyToMany.cs" />
+    <Compile Remove="Migrations\20190707125843_ManyToMany.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
