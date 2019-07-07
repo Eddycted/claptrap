@@ -8,6 +8,7 @@ namespace CL4PTR4P.Modules
 {
     [Group("tournament")]
     [Name("Tournament Module")]
+    [Alias("t")]
     public class TournamentModule : ModuleBase<SocketCommandContext>
     {
         private readonly ITournamentService _tournamentService;

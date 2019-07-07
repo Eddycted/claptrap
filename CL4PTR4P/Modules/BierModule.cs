@@ -22,7 +22,7 @@ namespace CL4PTR4P.Modules
             if (users.Any())
             {
                 output.Title = $"De ronde is al gestart!";
-                output.Footer.Text = $"Typ '!plus1' als je ook bier wil, of typ '!halen' om te bepalen wie er moet lopen.";
+                output.Footer.Text = $"Typ '!plus1' als je ook dorst hebt, of typ '!halen' om te bepalen wie er moet lopen.";
                 await ReplyAsync(embed: output.Build());
                 return;
             }
@@ -32,7 +32,7 @@ namespace CL4PTR4P.Modules
             users.Add(nickname);
 
             output.AddField($"Bierrrrr!", $"Nieuwe ronde gestart door {Context.User.Mention}!");
-            output.Footer.Text = $"Typ '!plus1' als je ook bier wil.";
+            output.Footer.Text = $"Typ '!plus1' als je ook dorst hebt.";
             await ReplyAsync(embed: output.Build());
         }
 
