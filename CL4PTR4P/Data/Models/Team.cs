@@ -11,8 +11,8 @@ namespace CL4PTR4P.Data.Models
         public string Name { get; set; }
         public int Score { get; set; }
 
-        public ICollection<PlayerTeam> PlayerTeams { get; set; }
-        public ICollection<TeamMatch> TeamMatches { get; set; }
-        public ICollection<TeamTournament> TeamTournaments { get; set; }
+        public ICollection<PlayerTeam> PlayerTeams { get; set; } = new List<PlayerTeam>();
+        public ICollection<TeamMatch> TeamMatches { get; set; } = new List<TeamMatch>();
+        public ICollection<TeamTournament> TeamTournaments { get; set; } = new List<TeamTournament>();
     }
 }

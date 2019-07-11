@@ -42,5 +42,13 @@ namespace CL4PTR4P.Modules
             await ReplyAsync($"Signing you up for tournament {tournament}, {Context.User.Mention}.");
             await _tournamentService.SignUpAsync(tournament, Context.User.Id);
         }
+
+        [Command("start")]
+        [Summary("Create match pairings for the specified tournament.")]
+        public async Task StartTournamentAsync(string tournament)
+        {
+            await ReplyAsync($"Starting tournament: {tournament}.");
+            await _tournamentService.StartTournamentAsync(tournament);
+        }
     }
 }

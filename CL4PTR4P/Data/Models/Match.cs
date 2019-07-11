@@ -10,7 +10,7 @@ namespace CL4PTR4P.Data.Models
         public int Id { get; set; }
 
         public Tournament Tournament { get; set; }
-        public ICollection<PlayerMatch> PlayerMatches { get; set; }
-        public ICollection<TeamMatch> TeamMatches { get; set; }
+        public ICollection<PlayerMatch> PlayerMatches { get; set; } = new List<PlayerMatch>();
+        public ICollection<TeamMatch> TeamMatches { get; set; } = new List<TeamMatch>();
     }
 }

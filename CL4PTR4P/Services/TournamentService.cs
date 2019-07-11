@@ -42,6 +42,12 @@ namespace CL4PTR4P.Services
                 return;
             }
 
+            if (tournament.HasStarted)
+            {
+                //return an error
+                return;
+            }
+
             //check if player is in db, if not add them
             var player = _tournamentContext.Players.SingleOrDefault(p => p.PlayerId == playerId);
             if (player == null)
@@ -63,12 +69,56 @@ namespace CL4PTR4P.Services
             tournament.PlayerTournaments.Add(new PlayerTournament { Tournament = tournament, Player = player });
             await _tournamentContext.SaveChangesAsync();
         }
+
+        public async Task StartTournamentAsync(string tournamentName)
+        {
+            var tournament = _tournamentContext.Tournaments.SingleOrDefault(t => t.Name == tournamentName);
+            if (tournament == null)
+            {
+                //return an error
+                return;
+            }
+
+            if (tournament.HasStarted)
+            {
+                //return an error
+                return;
+            }
+
+            tournament.HasStarted = true;
+
+            switch (tournament.Format)
+            {
+                case TournamentFormat.FFA:
+                    {
+                        var match = new Match { Tournament = tournament };
+                        foreach (var player in tournament.PlayerTournaments)
+                        {
+                            match.PlayerMatches.Add(new PlayerMatch { Match = match, Player = player.Player });
+                        }
+                        tournament.Matches.Add(match);
+                        break;
+                    }                    
+                case TournamentFormat.Solo:
+                    break;
+                case TournamentFormat.Team:
+                    break;
+                case TournamentFormat.None:
+                    break;
+                default:
+                    break;
+            }
+
+            await _tournamentContext.SaveChangesAsync();
+        }
     }
 
     public interface ITournamentService
     {
-        Task CreateAsync(string name, TournamentFormat format);
+        Task CreateAsync(string tournamentName, TournamentFormat format);
 
         Task SignUpAsync(string tournamentName, ulong playerId);
+
+        Task StartTournamentAsync(string tournamentName);
     }
 }

@@ -14,9 +14,10 @@ namespace CL4PTR4P.Data.Models
         public TournamentFormat Format { get; set; }
         public int TeamSize { get; set; }
         public DateTime StartTime { get; set; }
+        public bool HasStarted { get; set; }
 
         public ICollection<PlayerTournament> PlayerTournaments { get; set; } = new List<PlayerTournament>();
-        public ICollection<Match> Matches { get; set; }
-        public ICollection<TeamTournament> TeamTournaments { get; set; }
+        public ICollection<Match> Matches { get; set; } = new List<Match>();
+        public ICollection<TeamTournament> TeamTournaments { get; set; } = new List<TeamTournament>();
     }
 }
