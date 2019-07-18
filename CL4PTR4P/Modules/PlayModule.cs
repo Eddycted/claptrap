@@ -13,7 +13,7 @@ namespace CL4PTR4P.Modules
 
         [Command("wiespeeltwat")]
         [Summary("Laat zien wie welke game speelt.")]
-        public async Task ListPlayedGamesAsync()
+        public Task ListPlayingGamesAsync()
         {
             var output = new EmbedBuilder();
 
@@ -27,15 +27,14 @@ namespace CL4PTR4P.Modules
             if (!activities.Any())
             {
                 output.AddField("No Results", "No one is currently playing games.");
-                await ReplyAsync(embed: output.Build());
-                return;
+                return ReplyAsync(embed: output.Build());
             }
 
             foreach (var activity in activities)
             {
                 var names = Context.Guild.Users
                     .Where(u => u.Activity?.Name == activity)
-                    .Select(u => u.Nickname ?? u.Username) // TODO: Extension method?
+                    .Select(u => u.Nickname ?? u.Username)
                     .ToList();
 
                 var result = $"{names.Count} - " + string.Join(", ", names);
@@ -43,12 +42,12 @@ namespace CL4PTR4P.Modules
                 output.AddField(activity, result);
             }
 
-            await ReplyAsync(embed: output.Build());
+            return ReplyAsync(embed: output.Build());
         }
 
         [Command("wiespeelt")]
         [Summary("Laat zien wie de gespecificeerde game speelt.")]
-        public async Task IsPlayingGameAsync([Remainder]string gameName)
+        public Task IsPlayingGameAsync([Remainder]string gameName)
         {
             var output = new EmbedBuilder();
 
@@ -58,15 +57,31 @@ namespace CL4PTR4P.Modules
             if (!players.Any())
             {
                 output.AddField("No Results", $"No one is currently playing {gameName}.");
-                await ReplyAsync(embed: output.Build());
-                return;
+                return ReplyAsync(embed: output.Build());
             }
 
             var result = string.Join(", ", players.Select(u => u.Nickname ?? u.Username));
 
             output.AddField($"{players.First().Activity.Name} ({players.Count()})", result);
 
-            await ReplyAsync(embed: output.Build());
+            return ReplyAsync(embed: output.Build());
+        }
+
+        [Command("ikwil")]
+        [Summary("Laat weten wat je wil spelen.")]
+        [Alias("lfg")]
+        public Task IWantToPlayAsync([Remainder]string gameName)
+        {
+            
+            throw new NotImplementedException();
+        }
+
+        [Command("wiewil")]
+        [Summary("Laat zien wie de gespecificeerde game wil spelen.")]
+        public Task WhoWantsToPlayAsync([Remainder]string gameName)
+        {
+
+            throw new NotImplementedException();
         }
     }
 }
