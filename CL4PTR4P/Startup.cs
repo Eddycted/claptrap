@@ -1,5 +1,6 @@
 ﻿using CL4PTR4P.Data;
 using CL4PTR4P.Services;
+using CL4PTR4P.Services.Interfaces;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -55,7 +56,9 @@ namespace CL4PTR4P
         {
             var services = new ServiceCollection();
             services.AddSingleton<ITournamentService, TournamentService>();
+            services.AddSingleton<IGroupFinderService, GroupFinderService>();
             services.AddDbContext<TournamentContext>(options => options.UseSqlServer(@"Server=(localdb)\claptrap;Database=Claptrap;Trusted_Connection=True;"));
+            services.AddDbContext<GroupFinderContext>(options => options.UseSqlServer(@"Server=(localdb)\claptrap;Database=GroupFinder;Trusted_Connection=True;"));
 
             return services.BuildServiceProvider();
         }

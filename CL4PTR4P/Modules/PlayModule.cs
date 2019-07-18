@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using CL4PTR4P.Services.Interfaces;
+using Discord;
 using Discord.Commands;
 using System;
 using System.Linq;
@@ -9,8 +10,14 @@ namespace CL4PTR4P.Modules
     [Name("Play Module")]
     public class PlayModule : ModuleBase<SocketCommandContext>
     {
-        // TODO: Channel filter param
+        private readonly IGroupFinderService _groupFinderService;
 
+        public PlayModule(IGroupFinderService groupFinderService)
+        {
+            _groupFinderService = groupFinderService;
+        }
+
+        // TODO: Channel filter param
         [Command("wiespeeltwat")]
         [Summary("Laat zien wie welke game speelt.")]
         public Task ListPlayingGamesAsync()
@@ -67,19 +74,45 @@ namespace CL4PTR4P.Modules
             return ReplyAsync(embed: output.Build());
         }
 
-        [Command("ikwil")]
+        [Command("iwant")]
         [Summary("Laat weten wat je wil spelen.")]
-        [Alias("lfg")]
-        public Task IWantToPlayAsync([Remainder]string gameName)
+        [Alias("lfg", "ikwil")]
+        public async Task IWantToPlayAsync([Remainder]string gameName)
         {
-            
-            throw new NotImplementedException();
+            var output = new EmbedBuilder();
+
+            if (string.IsNullOrWhiteSpace(gameName))
+            {
+                output.AddField("Invalid input", "Enter a game name.");
+                output.Footer = new EmbedFooterBuilder { Text = "Example: '!iwant Tetris'" };
+                await ReplyAsync(embed: output.Build());
+            }
+
+            var result = await _groupFinderService.AddListingAsync(Context.User.Id, gameName);
+
+            if (result.IsSuccesful)
+            {
+                output.AddField("Looking for group!", $"Added you to listing for {gameName}");
+            }
+            else
+            {
+                output.AddField("Error", result.Message);
+            }
+
+            await ReplyAsync(embed: output.Build());
         }
 
         [Command("wiewil")]
         [Summary("Laat zien wie de gespecificeerde game wil spelen.")]
         public Task WhoWantsToPlayAsync([Remainder]string gameName)
         {
+            
+            if (string.IsNullOrWhiteSpace(gameName))
+            {
+                // List all results
+            }
+
+            // Find result by string
 
             throw new NotImplementedException();
         }

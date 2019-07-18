@@ -1,5 +1,5 @@
 ﻿using CL4PTR4P.Data.Enums;
-using CL4PTR4P.Services;
+using CL4PTR4P.Services.Interfaces;
 using Discord.Commands;
 using System;
 using System.Threading.Tasks;

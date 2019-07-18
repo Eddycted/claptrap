@@ -1,10 +1,10 @@
 ﻿using CL4PTR4P.Data;
 using CL4PTR4P.Data.Enums;
 using CL4PTR4P.Data.Models;
-using System;
-using System.Threading.Tasks;
-using System.Linq;
 using CL4PTR4P.Data.Models.JoinEntities;
+using CL4PTR4P.Services.Interfaces;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CL4PTR4P.Services
 {
@@ -111,14 +111,5 @@ namespace CL4PTR4P.Services
 
             await _tournamentContext.SaveChangesAsync();
         }
-    }
-
-    public interface ITournamentService
-    {
-        Task CreateAsync(string tournamentName, TournamentFormat format);
-
-        Task SignUpAsync(string tournamentName, ulong playerId);
-
-        Task StartTournamentAsync(string tournamentName);
     }
 }
